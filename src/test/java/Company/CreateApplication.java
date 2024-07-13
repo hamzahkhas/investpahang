@@ -7,8 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.time.Duration;
-
 public class CreateApplication {
 
     public static void main (String [] args) {
@@ -32,11 +30,15 @@ public class CreateApplication {
         // create application submenu
         WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a"));
         actions.moveToElement(investmentMenu).perform();
+        investmentMenu.click();
         driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
         driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
+
+
         driver.findElement(By.xpath("//*[@id=\"form-step-0\"]/div/div/div[2]/div/div/div[2]/button")).click();
 
         /*  tab 1 - application information a*/
+        // 
         WebElement typeOfInvestment = driver.findElement(By.xpath("//*[@id=\"investment_type\"]"));
         Select investmentDropdown = new Select(typeOfInvestment);
         investmentDropdown.selectByValue("agriculture");
@@ -48,9 +50,11 @@ public class CreateApplication {
         Select provinceDropdown = new Select(driver.findElement(By.xpath("//*[@id=\"district-select\"]")));
         provinceDropdown.selectByValue("Bentong");
 
-        driver.findElement(By.xpath("//*[@id=\"area\"]")).sendKeys();
+        driver.findElement(By.xpath("//*[@id=\"area\"]")).sendKeys("test");
 
 
         driver.quit();
+
+
     }
 }
