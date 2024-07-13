@@ -45,6 +45,10 @@ public class CreateApplication {
         Select districtDropdown = new Select(driver.findElement(By.xpath("//*[@id=\"region-select\"]")));
         districtDropdown.selectByValue("Bentong");
 
+        Select provinceDropdown = new Select(driver.findElement(By.xpath("//*[@id=\"district-select\"]")));
+        provinceDropdown.selectByValue("Bentong");
+
+        driver.findElement(By.xpath("//*[@id=\"area\"]")).sendKeys();
 
 
         driver.quit();
