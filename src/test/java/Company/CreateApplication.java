@@ -35,9 +35,7 @@ public class CreateApplication {
         actions.moveToElement(investmentMenu).perform();
         investmentMenu.click();
         driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a")).click();
-        
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
 
         // click next on checklist page
         driver.findElement(By.xpath("//*[@id=\"form-step-0\"]/div/div/div[2]/div/div/div[2]/button")).click();
@@ -106,6 +104,7 @@ public class CreateApplication {
         // driver.findElement(By.xpath("//*[@id=\"property_rights_copy\"]")).sendKeys("");
         // driver.findElement(By.xpath("//*[@id=\"official_land_search\"]")).sendKeys("");
         driver.findElement(By.xpath("//*[@id=\"form-step-7\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();
+        driver.quit();
         driver.findElement(By.xpath("//*[@id=\"submit-button\"]")).click();
         driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
 
@@ -116,13 +115,6 @@ public class CreateApplication {
         }
 
         driver.navigate().back();
-
-        /* still got issues here */
-        // create application submenu
-        actions.moveToElement(investmentMenu).perform();
-        investmentMenu.click();
-        driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a")).click();
 
         try {
             Thread.sleep(5000);
