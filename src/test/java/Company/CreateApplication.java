@@ -17,6 +17,7 @@ public class CreateApplication {
         ChromeDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);      // to do actions such as hovering
 
+        driver.manage().window().maximize();
         driver.get("https://dev.suite.psk.gov.my");
 
         // login
@@ -57,8 +58,8 @@ public class CreateApplication {
         driver.findElement(By.id("gross_development_cost")).sendKeys("1500000");            // gross development cost
         
         // upload file
-        WebElement uploadFileButton = driver.findElement(By.cssSelector("#project_implementation_schedule"));
-        uploadFileButton.sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
+        WebElement uploadProjectImplementationSchedule = driver.findElement(By.cssSelector("#project_implementation_schedule"));
+        uploadProjectImplementationSchedule.sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
 
         driver.findElement(By.xpath("//*[@id=\"form-step-1\"]/div/div[3]/div/div[5]/div[5]/button")).click();
 
@@ -68,23 +69,28 @@ public class CreateApplication {
         driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[1]/div/div/div[2]/input")).sendKeys("Hamzah Khas");
         driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[2]/div/div/div[2]/input")).sendKeys("000900000000");
         driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[3]/div/div/div[2]/input")).sendKeys("25");
+        driver.findElement(By.xpath("//*[@id=\"app-info-b-next-btn\"]")).click();
 
-        /* saving as draft */
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebElement draftButton = driver.findElement(By.id("draft-button"));
-        js.executeScript("arguments[0].click();", draftButton);
-        driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
-        // need to add element to wait for it to fully load
+        /* Tab 3 - project cost estimation */
+        driver.findElement(By.xpath("//*[@id=\"land\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"building\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"source_raw_material\"]   ")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"tools\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"staff\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"management_market_expenses\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"capital_loan_cost\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"utility_cost\"]")).sendKeys("100000");
+        driver.findElement(By.xpath("//*[@id=\"project-cost-est-next-button\"]")).click();
+        
+        /* Tab 4 -  project proposal */
+        driver.findElement(By.cssSelector("#project_proposal_paper")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\Proposal.pdf");
+        driver.findElement(By.xpath("//*[@id=\"form-step-4\"]/div/div[2]/div/div[2]/div/div/div[2]/button")).click();
 
-        // reveal sidebar (on hover etc)
-        actions.moveToElement(displaySidebar).perform();
-        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
+        /* Tab 5 - company profile */
+        driver.findElement(By.cssSelector("#company_profile")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\company profile.pdf");
+        driver.findElement(By.xpath("//*[@id=\"ssm\"]")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\company profile.pdf");
 
-        // create application submenu
-        actions.moveToElement(investmentMenu).perform();
-        investmentMenu.click();
-        driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a")).click();
+        
 
         driver.quit();
 
