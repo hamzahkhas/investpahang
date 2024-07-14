@@ -14,5 +14,4 @@ public class ApproveFirstLayer {
         driver.manage().window().maximize();
         driver.get("https://dev.suite.psk.gov.my");
     }
-
 }
