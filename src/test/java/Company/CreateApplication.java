@@ -71,7 +71,6 @@ public class CreateApplication {
         // upload file
         WebElement uploadProjectImplementationSchedule = driver.findElement(By.cssSelector("#project_implementation_schedule"));
         uploadProjectImplementationSchedule.sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
-
         driver.findElement(By.xpath("//*[@id=\"form-step-1\"]/div/div[3]/div/div[5]/div[5]/button")).click();
 
         /* Tab 2 - application information b */
@@ -132,11 +131,12 @@ public class CreateApplication {
         //     e.printStackTrace();
         // }    
 
+        // open new page
         js.executeScript("window.open('"+ link +"','_blank');");      
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));  
 
-        
+        // view applications
         displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
         actions.moveToElement(displaySidebar).perform();
         driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
