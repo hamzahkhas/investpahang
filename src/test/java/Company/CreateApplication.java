@@ -34,6 +34,7 @@ public class CreateApplication {
         WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a"));
         actions.moveToElement(investmentMenu).perform();
         investmentMenu.click();
+
         driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
         driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
 
@@ -59,7 +60,7 @@ public class CreateApplication {
         
         // upload file
         WebElement uploadProjectImplementationSchedule = driver.findElement(By.cssSelector("#project_implementation_schedule"));
-        uploadProjectImplementationSchedule.sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
+        uploadProjectImplementationSchedule.sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
 
         driver.findElement(By.xpath("//*[@id=\"form-step-1\"]/div/div[3]/div/div[5]/div[5]/button")).click();
 
@@ -83,46 +84,45 @@ public class CreateApplication {
         driver.findElement(By.xpath("//*[@id=\"project-cost-est-next-button\"]")).click();
         
         /* Tab 4 -  project proposal */
-        driver.findElement(By.cssSelector("#project_proposal_paper")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\Proposal.pdf");
+        driver.findElement(By.cssSelector("#project_proposal_paper")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Proposal.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-4\"]/div/div[2]/div/div[2]/div/div/div[2]/button")).click();
 
         /* Tab 5 - company profile */
-        driver.findElement(By.cssSelector("#company_profile")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\company profile.pdf");
-        driver.findElement(By.xpath("//*[@id=\"ssm\"]")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\company profile.pdf");
+        driver.findElement(By.cssSelector("#company_profile")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\company profile.pdf");
+        driver.findElement(By.xpath("//*[@id=\"ssm\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\company profile.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-5\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();
 
         /* Tab 6 - company financial report */
-        driver.findElement(By.cssSelector("#statement_account_1_value")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\financial report.pdf");
-        driver.findElement(By.cssSelector("#statement_account_2_value")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\financial report.pdf");
-        driver.findElement(By.cssSelector("#statement_account_3_value")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\financial report.pdf");
+        driver.findElement(By.cssSelector("#statement_account_1_value")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
+        driver.findElement(By.cssSelector("#statement_account_2_value")).sendKeys("C:\\\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
+        driver.findElement(By.cssSelector("#statement_account_3_value")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-6\"]/div[2]/div/div[2]/div/div/div[2]/button")).click();
 
         /* tab 7 - plan */
-        driver.findElement(By.xpath("//*[@id=\"site_plan\"]")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\site-plan-example.pdf");
-        driver.findElement(By.xpath("//*[@id=\"topography_plan\"]")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\topography-plan-example.pdf");
-        driver.findElement(By.xpath("//*[@id=\"site_zone\"]")).sendKeys("C:\\Users\\USER\\Downloads\\Telegram Desktop\\invest-pahang docs\\site zone enquiry.pdf");
+        driver.findElement(By.xpath("//*[@id=\"site_plan\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\site-plan-example.pdf");
+        driver.findElement(By.xpath("//*[@id=\"topography_plan\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\topography-plan-example.pdf");
+        driver.findElement(By.xpath("//*[@id=\"site_zone\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\site zone enquiry.pdf");
         // driver.findElement(By.xpath("//*[@id=\"property_rights_copy\"]")).sendKeys("");
         // driver.findElement(By.xpath("//*[@id=\"official_land_search\"]")).sendKeys("");
         driver.findElement(By.xpath("//*[@id=\"form-step-7\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();
-        driver.quit();
         driver.findElement(By.xpath("//*[@id=\"submit-button\"]")).click();
-        driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
+        // driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Thread.sleep(10000);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
 
-        driver.navigate().back();
+        // driver.navigate().back();
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Thread.sleep(5000);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }    
+        
 
-        driver.quit();
 
     }
 }
