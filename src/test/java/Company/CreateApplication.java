@@ -2,6 +2,8 @@ package Company;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,9 +18,12 @@ public class CreateApplication {
         WebDriverManager.chromedriver().setup();
         ChromeDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);      // to do actions such as hovering
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String link = "https://dev.suite.psk.gov.my";
+
 
         driver.manage().window().maximize();
-        driver.get("https://dev.suite.psk.gov.my");
+        driver.get(link);
 
         // login
         driver.findElement(By.id("email")).sendKeys("company@example.com");
@@ -37,6 +42,11 @@ public class CreateApplication {
 
         driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
         driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
+
+        // collapse sidebar
+        displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
+        actions.moveToElement(displaySidebar).perform();
+        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
 
         // click next on checklist page
         driver.findElement(By.xpath("//*[@id=\"form-step-0\"]/div/div/div[2]/div/div/div[2]/button")).click();
@@ -106,23 +116,42 @@ public class CreateApplication {
         // driver.findElement(By.xpath("//*[@id=\"official_land_search\"]")).sendKeys("");
         driver.findElement(By.xpath("//*[@id=\"form-step-7\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();
         driver.findElement(By.xpath("//*[@id=\"submit-button\"]")).click();
-        // driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
+        driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
 
-        // try {
-        //     Thread.sleep(10000);
-        // } catch (InterruptedException e) {
-        //     e.printStackTrace();
-        // }
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        // driver.navigate().back();
+        driver.navigate().back();
 
         // try {
         //     Thread.sleep(5000);
         // } catch (InterruptedException e) {
         //     e.printStackTrace();
         // }    
-        
 
+        js.executeScript("window.open('"+ link +"','_blank');");      
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));  
+
+        
+        displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
+        actions.moveToElement(displaySidebar).perform();
+        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
+
+        WebElement viewapplication = driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a"));
+        js.executeScript("arguments[0].click()", viewapplication);
+
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }   
+
+        driver.quit();
 
     }
 }
