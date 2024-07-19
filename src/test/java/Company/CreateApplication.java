@@ -125,12 +125,6 @@ public class CreateApplication {
 
         driver.navigate().back();
 
-        // try {
-        //     Thread.sleep(5000);
-        // } catch (InterruptedException e) {
-        //     e.printStackTrace();
-        // }    
-
         // open new page
         js.executeScript("window.open('"+ link +"','_blank');");      
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -143,7 +137,6 @@ public class CreateApplication {
 
         WebElement viewapplication = driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a"));
         js.executeScript("arguments[0].click()", viewapplication);
-
 
         try {
             Thread.sleep(5000);
