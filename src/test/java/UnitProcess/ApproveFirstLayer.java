@@ -1,7 +1,12 @@
 package UnitProcess;
 
 import java.time.Duration;
+import java.io.*;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -9,17 +14,21 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+
+
 public class ApproveFirstLayer {
 
     public static void main (String [] args) {
 
         WebDriverManager.chromedriver().setup();
-        ChromeDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         driver.manage().window().maximize();
-        driver.get("https://dev.suite.psk.gov.my");
+
+        try {
+            driver.get("https://dev.suite.psk.gov.my");
         
         // login
         driver.findElement(By.id("email")).sendKeys("unitprocess01@example.com");
@@ -42,7 +51,7 @@ public class ApproveFirstLayer {
         // view new application
         try {
             // Wait for the element to be visible
-            WebElement viewApplication = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"280\"]/td[7]/div/a[1]")));
+            WebElement viewApplication = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"298\"]/td[7]/div/a[1]")));
 
             // Move to the element and click it
             actions.moveToElement(viewApplication).perform();
@@ -139,6 +148,22 @@ public class ApproveFirstLayer {
 
         driver.navigate().back();
 
-        driver.quit();
+        } catch (Exception e) {
+            takeErrorScreenshot(driver, "unitprocess_firstlayer");
+            System.out.println("Something went wrong: "+e.getMessage());
+
+        } finally {
+            driver.quit();
+        }
+    }
+
+    // function to take ss
+    private static void takeErrorScreenshot(WebDriver driver, String fileName) {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screenshot, new File("C:\\Users\\hamza\\Downloads\\Error Screenshots\\"+fileName+".png"));
+        } catch (Exception e) {
+            System.out.println("Failed to take screenshot: "+e);
+        }
     }
 }

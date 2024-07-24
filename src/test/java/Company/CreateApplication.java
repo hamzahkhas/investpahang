@@ -1,31 +1,38 @@
 package Company;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-
 import java.util.ArrayList;
-
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import java.io.*;
+
+
 
 public class CreateApplication {
 
     public static void main (String [] args) {
 
         WebDriverManager.chromedriver().setup();
-        ChromeDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);      // to do actions such as hovering
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String link = "https://dev.suite.psk.gov.my";
 
 
         driver.manage().window().maximize();
-        driver.get(link);
 
+        try {
+            
         // login
+        driver.get(link);
         driver.findElement(By.id("email")).sendKeys("company@example.com");
         driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("password");
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
@@ -139,12 +146,28 @@ public class CreateApplication {
         js.executeScript("arguments[0].click()", viewapplication);
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }   
 
-        driver.quit();
+        } catch (Exception e) {
+            takeErrorScreenshot(driver, "Apply Error");
 
+        } finally {
+            driver.quit();
+        }
+
+    }
+
+    // fnction to capture ss
+    private static void takeErrorScreenshot(WebDriver driver, String fileName) {
+
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try{
+            FileUtils.copyFile(screenshot, new File("C:\\Users\\hamza\\Downloads\\Error Screenshots\\"+fileName+".png"));
+        } catch (IOException exception) {
+            System.out.println("Failed to save screenshot: "+exception);
+        }
     }
 }
