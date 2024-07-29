@@ -3,6 +3,7 @@ package UnitKewangan;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.util.ArrayList;
+
 
 
 
@@ -79,10 +82,25 @@ public class ApproveInvoiceFirstLevel {
     
             // click view invoice 
             driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div[3]/div/div/div/table/tbody/tr[2]/td[6]/div/div/a")).click();
-    
+            
+            // open invoice in new tab
+            driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div[3]/div[2]/div/div/table[1]/tbody/tr[2]/td[5]/a")).sendKeys(Keys.CONTROL,Keys.ENTER);
+
+            // switch tabs
+            ArrayList<String> windowTabs = new ArrayList<>(driver.getWindowHandles());
+            driver.switchTo().window(windowTabs.get(1));
+            System.out.println("Title of the new tab: " + driver.getTitle());
+
+            Thread.sleep(5000);
+
+            driver.switchTo().window(windowTabs.get(0));
+            driver.findElement(By.xpath("//*[@id=\"form-transaction-update-113\"]/button")).click();    // click approve
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div/div[6]/button[1]"))).click();
+
+            driver.navigate().back();
     
         } catch (Exception e) {
-            takeErrorScreenshot(driver, "error_screenshot");
+            takeErrorScreenshot(driver, "approveInvoiceFirstLayer");
             System.out.println("An error occurred: "+e.getMessage());
 
         } finally {
