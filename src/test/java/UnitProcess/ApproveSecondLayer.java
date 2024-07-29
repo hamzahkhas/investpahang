@@ -2,7 +2,6 @@ package UnitProcess;
 
 import java.io.*;
 import java.time.Duration;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -14,8 +13,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-
 
 public class ApproveSecondLayer {
 

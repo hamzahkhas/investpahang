@@ -18,8 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import dev.failsafe.TimeoutExceededException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-
-
 public class UploadInvoice {
     
     public static void main(String[] args) {

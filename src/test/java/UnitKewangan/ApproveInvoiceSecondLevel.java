@@ -1,5 +1,10 @@
 package UnitKewangan;
 
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import dev.failsafe.TimeoutExceededException;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,21 +14,14 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import dev.failsafe.TimeoutExceededException;
-import java.io.File;
-import java.io.IOException;
-import java.time.Duration;
+import java.util.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import java.util.ArrayList;
+import java.io.*;
+import java.time.*;
 
-public class ApproveInvoiceFirstLevel {
-
+public class ApproveInvoiceSecondLevel {
     public static void main(String[] args) {
-        
+
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);
@@ -31,11 +29,12 @@ public class ApproveInvoiceFirstLevel {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
+            
             driver.get("https://dev.suite.psk.gov.my");
             driver.manage().window().maximize();
     
             // login
-            driver.findElement(By.id("email")).sendKeys("finance01@example.com");
+            driver.findElement(By.id("email")).sendKeys("ayunormala@psk.gov.my");
             driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("M!rf@lah123");
             driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
     
@@ -51,7 +50,7 @@ public class ApproveInvoiceFirstLevel {
     
             driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[2]/a")).click();
             driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
-    
+
             boolean applicationFound = false;
     
             // to find the required applications and click the invoice
@@ -76,7 +75,7 @@ public class ApproveInvoiceFirstLevel {
                     }
                 }
             }
-    
+
             // click view invoice 
             driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div[3]/div/div/div/table/tbody/tr[2]/td[6]/div/div/a")).click();
             
@@ -96,16 +95,16 @@ public class ApproveInvoiceFirstLevel {
 
             driver.navigate().back();
     
-        } catch (Exception e) {
-            takeErrorScreenshot(driver, "approveInvoiceFirstLayer");
-            System.out.println("An error occurred: "+e.getMessage());
 
+        } catch (Exception e) {
+            takeErrorScreenshot(driver, "Second layer invoice error");
+            System.out.println("Something wrong happened: "+e.getMessage());
         } finally {
             driver.quit();
         }
     }
 
-    // fnction to capture ss
+
     private static void takeErrorScreenshot(WebDriver driver, String fileName) {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
@@ -114,4 +113,5 @@ public class ApproveInvoiceFirstLevel {
             System.out.println("Failed to save screenshot");
         }
     }
+
 }

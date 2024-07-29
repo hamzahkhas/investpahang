@@ -14,8 +14,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import java.io.*;
 
-
-
 public class CreateApplication {
 
     public static void main (String [] args) {
