@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.io.*;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -13,9 +14,11 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.Test;
 
 public class ApproveFirstLayer {
 
+    @Test
     public static void main (String [] args) {
 
         WebDriverManager.chromedriver().setup();
@@ -33,30 +36,39 @@ public class ApproveFirstLayer {
         driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("M!rf@lah123");
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
 
-        // reveal sidebar (on hover etc)
-        WebElement displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
-        actions.moveToElement(displaySidebar).perform();
-        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
+        // view new application submenu
+        WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
+        actions.moveToElement(unitProcessMenu).perform();
+        unitProcessMenu.click();
+        driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
 
-        // view application submenu
-        WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[2]/a"));
-        actions.moveToElement(investmentMenu).perform();
-        investmentMenu.click();
+        boolean applicationFound = false;
 
-        driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[2]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
-
-        // view new application
-        try {
-            // Wait for the element to be visible
-            WebElement viewApplication = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"298\"]/td[7]/div/a[1]")));
-
-            // Move to the element and click it
-            actions.moveToElement(viewApplication).perform();
-            viewApplication.click();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        // cari the application
+        while (!applicationFound) {
+            try {
+                // Try to locate the application by its XPath
+                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"339\"]/td[7]/div/a[1]")));
+                applicationFound = true;
+                applicationId.click();
+                System.out.println("Application found and clicked.");
+            } catch (NoSuchElementException e) {
+                try {
+                    // Look for the "Next" button and click it
+                    WebElement nextPage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable_next\"]/a")));
+                    nextPage.click();
+                    
+                    // Wait for the new page to load
+                    wait.until(ExpectedConditions.stalenessOf(nextPage)); // Wait for the page to refresh
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='dataTable']"))); // Wait for the table to be visible
+                    
+                } catch (NoSuchElementException ex) {
+                    // Break the loop if "Next" button is not found or a timeout occurs
+                    System.out.println("Next button not found or timeout occurred: " + ex);
+                    break;
+                }
+            }
         }
 
         driver.findElement(By.xpath("//*[@id=\"form-step-0\"]/div/div/div/div/div/div/div[2]/button")).click();
@@ -137,14 +149,11 @@ public class ApproveFirstLayer {
             System.out.println("Unable to click approve button " + e);
         }
 
-
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        driver.navigate().back();
 
         } catch (Exception e) {
             takeErrorScreenshot(driver, "unitprocess_firstlayer");
