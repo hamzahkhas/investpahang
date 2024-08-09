@@ -1,11 +1,12 @@
 package UnitKewangan;
 
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import dev.failsafe.TimeoutExceededException;
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -14,12 +15,16 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import java.util.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
-import java.io.*;
-import java.time.*;
 
 public class ApproveInvoiceSecondLevel {
+
+    @Test
     public static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
@@ -38,49 +43,46 @@ public class ApproveInvoiceSecondLevel {
             driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("M!rf@lah123");
             driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
     
-            // reveal sidebar
-            WebElement displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
-            actions.moveToElement(displaySidebar).perform();
-            driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
-    
-            // view application submenu
-            WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[2]/a"));
-            actions.moveToElement(investmentMenu).perform();
-            investmentMenu.click();
-    
-            driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[2]/a")).click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
+            // view new application submenu
+            WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
+            actions.moveToElement(unitProcessMenu).perform();
+            unitProcessMenu.click();
+            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
+            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
 
             boolean applicationFound = false;
     
             // to find the required applications and click the invoice
             while (!applicationFound) {
                 try {
-                    WebElement applicationId = driver.findElement(By.xpath("//*[@id=\"298\"]/td[7]/div/a[2]"));
+                    // Try to locate the application by its XPath
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
-    
-                } catch (Exception e) {
+                    System.out.println("Application found and clicked.");
+                } catch (NoSuchElementException e) {
                     try {
+                        // Look for the "Next" button and click it
                         WebElement nextPage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable_next\"]/a")));
                         nextPage.click();
-                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"298\"]/td[7]/div/a[2]"))); // wait for an element on the next page to ensure the page is loaded
-    
+                        
+                        // Wait for the new page to load
+                        wait.until(ExpectedConditions.stalenessOf(nextPage)); // Wait for the page to refresh
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='dataTable']"))); // Wait for the table to be visible
+                        
                     } catch (NoSuchElementException ex) {
-                        System.out.println("Next button not found "+ex);
-                        break;
-                    } catch (TimeoutExceededException te) {
-                        System.out.println("timeout wait " +te);
+                        // Break the loop if "Next" button is not found or a timeout occurs
+                        System.out.println("Next button not found or timeout occurred: " + ex);
                         break;
                     }
                 }
             }
 
             // click view invoice 
-            driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div[3]/div/div/div/table/tbody/tr[2]/td[6]/div/div/a")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[2]/main/div[2]/div[2]/div/div/div/table/tbody/tr[2]/td[6]/div/div/a"))).click();
             
             // open invoice in new tab
-            driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div[3]/div[2]/div/div/table[1]/tbody/tr[2]/td[5]/a")).sendKeys(Keys.CONTROL,Keys.ENTER);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[2]/main/div[2]/div[2]/div[2]/div/div/table[1]/tbody/tr[2]/td[5]/a"))).sendKeys(Keys.CONTROL,Keys.ENTER);
 
             // switch tabs
             ArrayList<String> windowTabs = new ArrayList<>(driver.getWindowHandles());
@@ -90,7 +92,7 @@ public class ApproveInvoiceSecondLevel {
             Thread.sleep(5000);
 
             driver.switchTo().window(windowTabs.get(0));
-            driver.findElement(By.xpath("//*[@id=\"form-transaction-update-113\"]/button")).click();    // click approve
+            driver.findElement(By.xpath("//*[starts-with(@id, 'form-transaction-update')]/button")).click();    // click approve
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div/div[6]/button[1]"))).click();
 
             driver.navigate().back();
