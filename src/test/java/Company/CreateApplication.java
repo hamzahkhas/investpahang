@@ -11,8 +11,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.*;
+import java.time.Duration;
 
 public class CreateApplication {
 
@@ -23,6 +27,7 @@ public class CreateApplication {
         Actions actions = new Actions(driver);      // to do actions such as hovering
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String link = "https://dev.suite.psk.gov.my";
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 
         driver.manage().window().maximize();
@@ -35,26 +40,14 @@ public class CreateApplication {
         driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("password");
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
 
-        // reveal sidebar (on hover etc)
-        WebElement displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
-        actions.moveToElement(displaySidebar).perform();
-        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
-
         // create application submenu
-        WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a"));
+        WebElement investmentMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a"));
         actions.moveToElement(investmentMenu).perform();
         investmentMenu.click();
-
-        driver.findElement(By.xpath("//*[@id=\"adminmenu\"]/ul/li[3]/a")).click();
-        driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[1]/a")).click();
-
-        // collapse sidebar
-        displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
-        actions.moveToElement(displaySidebar).perform();
-        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/div/ul/li[1]/a/span[2]")).click();
 
         // click next on checklist page
-        driver.findElement(By.xpath("//*[@id=\"form-step-0\"]/div/div/div[2]/div/div/div[2]/button")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#form-step-0 > div > div > div:nth-child(2) > div > div > div:nth-child(2) > button"))).click();;
 
         /*  tab 1 - application information a*/
         WebElement typeOfInvestment = driver.findElement(By.xpath("//*[@id=\"investment_type\"]"));     // investment type
@@ -123,25 +116,21 @@ public class CreateApplication {
         driver.findElement(By.xpath("/html/body/div[3]/div/div[6]/button[1]")).click();
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        driver.navigate().back();
 
         // open new page
         js.executeScript("window.open('"+ link +"','_blank');");      
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));  
 
-        // view applications
-        displaySidebar = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button"));
-        actions.moveToElement(displaySidebar).perform();
-        driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/nav/div[1]/button")).click();
-
-        WebElement viewapplication = driver.findElement(By.xpath("//*[@id=\"sidebar-investment-dropdown-list\"]/li[2]/a"));
-        js.executeScript("arguments[0].click()", viewapplication);
+        // view project progress
+        WebElement investMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a"));
+        actions.moveToElement(investMenu).perform();
+        investMenu.click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/div/ul/li[6]/a"))).click();
 
         try {
             Thread.sleep(10000);
