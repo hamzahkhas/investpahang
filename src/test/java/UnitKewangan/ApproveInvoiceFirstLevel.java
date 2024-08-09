@@ -53,14 +53,15 @@ public class ApproveInvoiceFirstLevel {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"339\"]/td[7]/div/a[2]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");
                 } catch (NoSuchElementException e) {
                     try {
                         // Look for the "Next" button and click it
-                        WebElement nextPage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable_next\"]/a")));
+                        WebElement nextPage = wait.until(ExpectedConditions.
+                        elementToBeClickable(By.xpath("//*[@id=\"dataTable_next\"]/a")));
                         nextPage.click();
                         
                         // Wait for the new page to load
@@ -89,7 +90,7 @@ public class ApproveInvoiceFirstLevel {
             Thread.sleep(5000);
 
             driver.switchTo().window(windowTabs.get(0));
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"form-transaction-update-136\"]/button"))).click();    // click approve
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[starts-with(@id, 'form-transaction-update')]/button"))).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div/div[6]/button[1]"))).click();
 
             driver.navigate().back();
