@@ -25,7 +25,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class ApproveInvoiceSecondLevel {
 
     @Test
-    public static void main(String[] args) {
+    public void testApproveInvoiceSecond() {
+        testApproveInvoiceSecondLevel();
+    }
+    
+    public static void testApproveInvoiceSecondLevel() {
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -56,7 +60,7 @@ public class ApproveInvoiceSecondLevel {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[2]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");

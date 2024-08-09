@@ -22,7 +22,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class UploadInvoice {
 
     @Test
-    public static void main(String[] args) throws TimeoutException {
+    public void testUpload() {
+        testUploadInvoice();
+    }
+
+    public static void testUploadInvoice() {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -57,7 +61,7 @@ public class UploadInvoice {
             try {
                 // Try to locate the application by its XPath
 
-                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"339\"]/td[8]/div/a[3]")));
+                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[8]/div/a[3]")));
                 applicationFound = true;
                 js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
                 System.out.println("Application found and clicked.");

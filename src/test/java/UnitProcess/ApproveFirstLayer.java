@@ -19,7 +19,11 @@ import org.junit.jupiter.api.Test;
 public class ApproveFirstLayer {
 
     @Test
-    public static void main (String [] args) {
+    public void testApproveFirst() {
+        testApproveFirstLayer();
+    }
+
+    public static void testApproveFirstLayer() {
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -49,7 +53,7 @@ public class ApproveFirstLayer {
         while (!applicationFound) {
             try {
                 // Try to locate the application by its XPath
-                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"339\"]/td[7]/div/a[1]")));
+                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[1]")));
                 applicationFound = true;
                 applicationId.click();
                 System.out.println("Application found and clicked.");

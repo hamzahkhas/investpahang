@@ -1,43 +1,29 @@
 package Executive;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.Duration;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.time.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class GenerateLetter {
+public class AssignReviewer {
 
-    @Test
-    public void testGenerate() {
-        testGenerateLetter();
-    }
-    
-    
-    public static void testGenerateLetter() {
+    public static void main(String[] args) {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
         try {
-
             driver.get("https://dev.suite.psk.gov.my");
             driver.manage().window().maximize();
     
@@ -50,21 +36,20 @@ public class GenerateLetter {
             WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
             actions.moveToElement(unitProcessMenu).perform();
             unitProcessMenu.click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
-
-            driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
-            driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[3]/a"))).click();
 
             boolean applicationFound = false;
     
             // to find the required applications and click the invoice
             while (!applicationFound) {
                 try {
-                    // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[3]")));
+                    // Try to locate the application by its XPath   //*[@id="338"]/td[7]/div/a //*[@id="282"]/td[7]/div/a //*[@id="280"]/td[7]/div/a[3]
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[3]")));
                     applicationFound = true;
-                    applicationId.click();
+                    js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
+
+                    // applicationId.click();
                     System.out.println("Application found and clicked.");
                 } catch (NoSuchElementException e) {
                     try {
@@ -84,27 +69,9 @@ public class GenerateLetter {
                 }
             }
 
-            // input reference number
-            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/div/div/div/div[1]/div/input")).sendKeys("SUK.PHG/UPEN.002/8.08.2457");
-            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/button")).click();
-            
         } catch (Exception e) {
-            takeErrorScreenshot(driver, "generateLetter");
-            System.out.println("Something Wrong happened: "+e.getMessage());
-        } finally {
-            driver.quit();
+            // TODO: handle exception
         }
     }
 
-    
-    private static void takeErrorScreenshot(WebDriver driver, String fileName) {
-        File errorScreenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(errorScreenshot, new File("C:\\Users\\hamza\\Downloads\\Error Screenshots\\"+fileName+".png"));
-
-        } catch (IOException e) {
-            System.out.println("Failed to save screenshot");
-
-        }
-    }
 }

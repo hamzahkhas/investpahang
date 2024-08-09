@@ -23,7 +23,11 @@ import java.util.ArrayList;
 public class ApproveInvoiceFirstLevel {
 
     @Test
-    public static void main(String[] args) {
+    public void testApproveFirst() {
+        testApproveInvoiceFirstLevel();
+    }
+
+    public static void testApproveInvoiceFirstLevel() {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -53,7 +57,7 @@ public class ApproveInvoiceFirstLevel {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[2]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");
