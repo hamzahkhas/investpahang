@@ -59,7 +59,7 @@ public class UploadInvoice {
 
                 WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"339\"]/td[8]/div/a[3]")));
                 applicationFound = true;
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", applicationId);
+                js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
                 System.out.println("Application found and clicked.");
 
             } catch (org.openqa.selenium.TimeoutException e) {
