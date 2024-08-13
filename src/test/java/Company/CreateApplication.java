@@ -3,6 +3,7 @@ package Company;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.ArrayList;
 import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -14,13 +15,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.*;
 import java.time.Duration;
 
 public class CreateApplication {
 
-    public static void main (String [] args) {
+    @Test
+    public void testCreateApplication() {
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();

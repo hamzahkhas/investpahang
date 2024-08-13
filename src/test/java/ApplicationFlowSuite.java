@@ -1,5 +1,5 @@
-import org.junit.*;
-
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 import Company.UploadInvoice;
 import Executive.GenerateLetter;
 import UnitKewangan.ApproveInvoiceFirstLevel;
@@ -7,20 +7,20 @@ import UnitKewangan.ApproveInvoiceSecondLevel;
 import UnitProcess.ApproveFirstLayer;
 import UnitProcess.ApproveSecondLayer;
 
+
+
+@Suite
+@SelectClasses({
+    ApproveFirstLayer.class,
+    ApproveSecondLayer.class,
+    UploadInvoice.class,
+    ApproveInvoiceFirstLevel.class,
+    ApproveInvoiceSecondLevel.class,
+    GenerateLetter.class
+})
+
 public class ApplicationFlowSuite {
-
-    @RunWith(Suite.class)
-    @Suite.SuiteClasses({
-        ApproveFirstLayer.java,
-        ApproveSecondLayer.java,
-        UploadInvoice.java,
-        ApproveInvoiceFirstLevel.java,
-        ApproveInvoiceSecondLevel.java,
-        GenerateLetter.java
-    })
-
-    public class ApplicationFlowSuite {
-        
-    }
     
 }
+    
+

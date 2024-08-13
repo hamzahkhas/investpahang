@@ -23,11 +23,7 @@ import java.util.ArrayList;
 public class ApproveInvoiceFirstLevel {
 
     @Test
-    public void testApproveFirst() {
-        testApproveInvoiceFirstLevel();
-    }
-
-    public static void testApproveInvoiceFirstLevel() {
+    public void testApproveInvoiceFirstLevel(int applicationNo) {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -48,8 +44,8 @@ public class ApproveInvoiceFirstLevel {
             WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
             actions.moveToElement(unitProcessMenu).perform();
             unitProcessMenu.click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a"))).click();
     
             boolean applicationFound = false;
     
@@ -57,7 +53,7 @@ public class ApproveInvoiceFirstLevel {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[2]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\""+applicationNo+"\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");

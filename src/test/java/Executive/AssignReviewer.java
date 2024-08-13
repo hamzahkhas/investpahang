@@ -1,5 +1,6 @@
 package Executive;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -7,15 +8,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.*;
+import java.util.List;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AssignReviewer {
 
-    public static void main(String[] args) {
+    @Test
+    public void testAssignReviewer() {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -44,12 +46,12 @@ public class AssignReviewer {
             // to find the required applications and click the invoice
             while (!applicationFound) {
                 try {
-                    // Try to locate the application by its XPath   //*[@id="338"]/td[7]/div/a //*[@id="282"]/td[7]/div/a //*[@id="280"]/td[7]/div/a[3]
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"280\"]/td[7]/div/a[3]")));
+                    // Try to locate the application by its XPath   
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"338\"]/td[7]/div/a")));
                     applicationFound = true;
-                    js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
+                    // js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
 
-                    // applicationId.click();
+                    applicationId.click();
                     System.out.println("Application found and clicked.");
                 } catch (NoSuchElementException e) {
                     try {
@@ -57,7 +59,7 @@ public class AssignReviewer {
                         WebElement nextPage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable_next\"]/a")));
                         nextPage.click();
                         
-                        // Wait for the new page to load
+                        // Wait for the new page to loads
                         wait.until(ExpectedConditions.stalenessOf(nextPage)); // Wait for the page to refresh
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='dataTable']"))); // Wait for the table to be visible
                         
@@ -69,8 +71,31 @@ public class AssignReviewer {
                 }
             }
 
+            WebElement table = driver.findElement(By.id("dataTable"));
+            List <WebElement> rows = table.findElements(By.tagName("tr"));
+
+            String targetFileNo = "SUK.PHG.TEST/12.08.2024	";
+
+            for (WebElement row : rows){
+                List <WebElement> columns = row.findElements(By.tagName("td"));    
+
+                if (columns.get(0).getText().equals(targetFileNo)) {
+                    WebElement actionButton = columns.get(2).findElement(By.xpath("//tr[td[1]='"+targetFileNo+"']/td[7]/div/a"));
+                    actionButton.click();
+                    break;  
+                }
+            }
+
+            WebElement internalReviewer = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"assign-reviewer-form\"]/div/div/div/div[3]/div/span/span[1]/span")));
+            internalReviewer.sendKeys("haslina");
+            WebElement internalReviewerSuggestions = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#select2-reviewer-ia-result-8478-131")));
+            WebElement externalReviewer;
+
+
         } catch (Exception e) {
             // TODO: handle exception
+        } finally {
+            driver.quit();
         }
     }
 

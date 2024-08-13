@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -19,17 +18,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ApproveInvoiceSecondLevel {
 
     @Test
-    public void testApproveInvoiceSecond() {
-        testApproveInvoiceSecondLevel();
-    }
-    
-    public static void testApproveInvoiceSecondLevel() {
+    public void testApproveInvoiceSecondLevel(int applicationNo) {
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -51,8 +45,8 @@ public class ApproveInvoiceSecondLevel {
             WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
             actions.moveToElement(unitProcessMenu).perform();
             unitProcessMenu.click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a"))).click();
 
             boolean applicationFound = false;
     
@@ -60,7 +54,7 @@ public class ApproveInvoiceSecondLevel {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[2]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\""+applicationNo+"\"]/td[7]/div/a[2]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");

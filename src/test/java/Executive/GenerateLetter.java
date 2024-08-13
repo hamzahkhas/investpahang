@@ -3,7 +3,6 @@ package Executive;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -17,18 +16,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class GenerateLetter {
 
     @Test
-    public void testGenerate() {
-        testGenerateLetter();
-    }
-    
-    
-    public static void testGenerateLetter() {
+    public void testGenerateLetter(int applicationNo, String fileNo) {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -62,7 +55,7 @@ public class GenerateLetter {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[7]/div/a[3]")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\""+applicationNo+"\"]/td[7]/div/a[3]")));
                     applicationFound = true;
                     applicationId.click();
                     System.out.println("Application found and clicked.");
@@ -85,7 +78,7 @@ public class GenerateLetter {
             }
 
             // input reference number
-            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/div/div/div/div[1]/div/input")).sendKeys("SUK.PHG/UPEN.002/8.08.2457");
+            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/div/div/div/div[1]/div/input")).sendKeys(fileNo);
             driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/button")).click();
             
         } catch (Exception e) {

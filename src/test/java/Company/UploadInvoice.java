@@ -3,7 +3,6 @@ package Company;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.time.Duration;
-import java.util.concurrent.TimeoutException;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -22,11 +21,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class UploadInvoice {
 
     @Test
-    public void testUpload() {
-        testUploadInvoice();
-    }
-
-    public static void testUploadInvoice() {
+    public void testUploadInvoice(int applicationNo) {
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -61,7 +56,7 @@ public class UploadInvoice {
             try {
                 // Try to locate the application by its XPath
 
-                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"342\"]/td[8]/div/a[3]")));
+                WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\""+applicationNo+"\"]/td[8]/div/a[3]")));
                 applicationFound = true;
                 js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
                 System.out.println("Application found and clicked.");
