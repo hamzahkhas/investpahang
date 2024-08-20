@@ -6,7 +6,7 @@ import java.time.Duration;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+// import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -26,7 +26,7 @@ public class GenerateLetter {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        // JavascriptExecutor js = (JavascriptExecutor) driver;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {

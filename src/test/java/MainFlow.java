@@ -19,8 +19,8 @@ public class MainFlow {
     @Test
     public void runMainFlow() {
 
-        String fileNo = "SUK.PHG/UPEN.002/8.08.2460";
-        int applicationNo = 348;
+        String fileNo = "SUK.PHG/UPEN.002/8.08.2467";
+        int applicationNo = 356;
 
         ApproveFirstLayer approveFirstLayer = new ApproveFirstLayer();
         ApproveSecondLayer approveSecondLayer = new ApproveSecondLayer();

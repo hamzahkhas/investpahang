@@ -83,7 +83,7 @@ public class UploadInvoice {
         // upload invoice
         Thread.sleep(5000);
         WebElement uploadInvoice = driver.findElement(By.xpath("//*[@id=\"proof_of_payment\"]"));   // not catered for different payment types yet due to some bullshit
-        uploadInvoice.sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
+        uploadInvoice.sendKeys("C:\\Users\\hamza\\Downloads\\Invoice.pdf"); 
         driver.findElement(By.xpath("/html/body/div[2]/div[2]/main/div[2]/div[2]/div[2]/div/div/div/div/div[2]/button")).click();
 
         // switch to confirmation alert

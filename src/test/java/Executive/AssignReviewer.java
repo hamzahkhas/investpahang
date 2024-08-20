@@ -89,6 +89,7 @@ public class AssignReviewer {
             WebElement internalReviewer = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"assign-reviewer-form\"]/div/div/div/div[3]/div/span/span[1]/span")));
             internalReviewer.sendKeys("haslina");
             WebElement internalReviewerSuggestions = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#select2-reviewer-ia-result-8478-131")));
+            
             WebElement externalReviewer;
 
 
