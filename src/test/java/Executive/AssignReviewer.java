@@ -25,6 +25,8 @@ public class AssignReviewer {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
+        int applicationNo = 38;
+
         try {
             driver.get("https://dev.suite.psk.gov.my");
             driver.manage().window().maximize();
@@ -47,7 +49,7 @@ public class AssignReviewer {
             while (!applicationFound) {
                 try {
                     // Try to locate the application by its XPath   
-                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"338\"]/td[7]/div/a")));
+                    WebElement applicationId = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\""+ applicationNo +"\"]/td[7]/div/a")));
                     applicationFound = true;
                     // js.executeScript("arguments[0].click();", applicationId); // use this when nak click button yang di hujung
 

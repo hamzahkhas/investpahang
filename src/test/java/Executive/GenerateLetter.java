@@ -40,11 +40,11 @@ public class GenerateLetter {
             driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
     
             // view new application submenu
-            WebElement unitProcessMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a"));
+            WebElement unitProcessMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a")));
             actions.moveToElement(unitProcessMenu).perform();
             unitProcessMenu.click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a")).click();
-            driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a"))).click();
 
             driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
             driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();

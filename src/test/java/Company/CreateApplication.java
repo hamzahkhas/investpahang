@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -54,7 +53,7 @@ public class CreateApplication {
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#form-step-0 > div > div > div:nth-child(2) > div > div > div:nth-child(2) > button"))).click();;
 
         /*  tab 1 - application information a*/
-        WebElement typeOfInvestment = driver.findElement(By.xpath("//*[@id=\"investment_type\"]"));     // investment type
+        WebElement typeOfInvestment = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"investment_type\"]")));     // investment type
         Select investmentDropdown = new Select(typeOfInvestment);
         investmentDropdown.selectByValue("agriculture");
         
@@ -71,8 +70,8 @@ public class CreateApplication {
         driver.findElement(By.id("gross_development_cost")).sendKeys("1100000");            // gross development cost
         
         // upload file
-        WebElement uploadProjectImplementationSchedule = driver.findElement(By.cssSelector("#project_implementation_schedule"));
-        uploadProjectImplementationSchedule.sendKeys("C:\\Users\\hamza\\Downloads\\Implementation Schedule.pdf"); 
+        WebElement uploadProjectImplementationSchedule = driver.findElement(By.xpath("//*[@id=\"project_implementation_schedule\"]"));
+        uploadProjectImplementationSchedule.sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Implementation Schedule.pdf"); 
         driver.findElement(By.xpath("//*[@id=\"form-step-1\"]/div/div[3]/div/div[5]/div[5]/button")).click();
 
         /* Tab 2 - application information b */
@@ -98,24 +97,24 @@ public class CreateApplication {
         driver.findElement(By.xpath("//*[@id=\"project-cost-est-next-button\"]")).click();
         
         /* Tab 4 -  project proposal */
-        driver.findElement(By.cssSelector("#project_proposal_paper")).sendKeys("C:\\Users\\hamza\\Downloads\\Kertas Cadangan.pdf");
+        driver.findElement(By.cssSelector("#project_proposal_paper")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\Proposal.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-4\"]/div/div[2]/div/div[2]/div/div/div[2]/button")).click();
 
         /* Tab 5 - company profile */
-        driver.findElement(By.cssSelector("#company_profile")).sendKeys("C:\\Users\\hamza\\Downloads\\Company Profile.pdf");
-        driver.findElement(By.xpath("//*[@id=\"ssm\"]")).sendKeys("C:\\Users\\hamza\\Downloads\\SSM.pdf");
+        driver.findElement(By.cssSelector("#company_profile")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\company profile.pdf");
+        driver.findElement(By.xpath("//*[@id=\"ssm\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\company profile.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-5\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();
 
         /* Tab 6 - company financial report */
-        driver.findElement(By.cssSelector("#statement_account_1_value")).sendKeys("C:\\Users\\hamza\\Downloads\\Financial Report 1.pdf");
-        driver.findElement(By.cssSelector("#statement_account_2_value")).sendKeys("C:\\Users\\hamza\\Downloads\\Financial Report 2.pdf");
-        driver.findElement(By.cssSelector("#statement_account_3_value")).sendKeys("C:\\Users\\hamza\\Downloads\\Financial Report 3.pdf");
+        driver.findElement(By.cssSelector("#statement_account_1_file")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
+        driver.findElement(By.cssSelector("#statement_account_2_file")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
+        driver.findElement(By.cssSelector("#statement_account_3_file")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\financial report.pdf");
         driver.findElement(By.xpath("//*[@id=\"form-step-6\"]/div[2]/div/div[2]/div/div/div[2]/button")).click();
 
         /* tab 7 - plan */
-        driver.findElement(By.xpath("//*[@id=\"site_plan\"]")).sendKeys("C:\\Users\\hamza\\Downloads\\Site Plan.pdf");
-        driver.findElement(By.xpath("//*[@id=\"topography_plan\"]")).sendKeys("C:\\Users\\hamza\\Downloads\\Topo Plan.pdf");
-        driver.findElement(By.xpath("//*[@id=\"site_zone\"]")).sendKeys("C:\\Users\\hamza\\Downloads\\Site Zone.pdf");
+        driver.findElement(By.xpath("//*[@id=\"site_plan\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\site-plan-example.pdf");
+        driver.findElement(By.xpath("//*[@id=\"topography_plan\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\topography-plan-example.pdf");
+        driver.findElement(By.xpath("//*[@id=\"site_zone\"]")).sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\site zone enquiry.pdf");
         // driver.findElement(By.xpath("//*[@id=\"property_rights_copy\"]")).sendKeys("");
         // driver.findElement(By.xpath("//*[@id=\"official_land_search\"]")).sendKeys("");
         driver.findElement(By.xpath("//*[@id=\"form-step-7\"]/div[2]/div/div[3]/div/div/div[2]/button")).click();

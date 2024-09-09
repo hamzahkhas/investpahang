@@ -41,13 +41,13 @@ public class UploadInvoice {
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
 
         // open project progress submenu
-        WebElement investMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a"));
+        WebElement investMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a")));
         actions.moveToElement(investMenu).perform();
         investMenu.click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/div/ul/li[6]/a"))).click();
        
-        driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
-        driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
 
         boolean applicationFound = false;
 
@@ -83,7 +83,7 @@ public class UploadInvoice {
         // upload invoice
         Thread.sleep(5000);
         WebElement uploadInvoice = driver.findElement(By.xpath("//*[@id=\"proof_of_payment\"]"));   // not catered for different payment types yet due to some bullshit
-        uploadInvoice.sendKeys("C:\\Users\\hamza\\Downloads\\Invoice.pdf"); 
+        uploadInvoice.sendKeys("C:\\Users\\hamza\\Desktop\\invest-pahang docs\\invoice.pdf"); 
         driver.findElement(By.xpath("/html/body/div[2]/div[2]/main/div[2]/div[2]/div[2]/div/div/div/div/div[2]/button")).click();
 
         // switch to confirmation alert
