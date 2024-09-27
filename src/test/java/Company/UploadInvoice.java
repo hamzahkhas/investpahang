@@ -37,7 +37,7 @@ public class UploadInvoice {
 
         // login
         driver.findElement(By.id("email")).sendKeys("company@example.com");
-        driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("password");
+        driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("M!rf@lah123");
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
 
         // open project progress submenu

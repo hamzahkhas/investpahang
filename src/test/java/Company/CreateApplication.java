@@ -17,7 +17,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CreateApplication {
@@ -40,7 +39,7 @@ public class CreateApplication {
         // login
         driver.get(link);
         driver.findElement(By.id("email")).sendKeys("company@example.com");
-        driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("password");
+        driver.findElement(By.xpath("//*[@id=\"passwordGroup\"]/div/input")).sendKeys("M!rf@lah123");
         driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
 
         // create application submenu
@@ -57,15 +56,15 @@ public class CreateApplication {
         Select investmentDropdown = new Select(typeOfInvestment);
         investmentDropdown.selectByValue("agriculture");
         
-        driver.findElement(By.xpath("//*[@id=\"proposed_project\"]")).sendKeys("CADANGAN PAJAKAN TANAH PROJEK TANAMAN KELAPA");     // proposed project
+        driver.findElement(By.xpath("//*[@id=\"proposed_project\"]")).sendKeys("CADANGAN PAJAKAN TANAH PROJEK TANAMAN STRAWBERRY");     // proposed project
 
         Select districtDropdown = new Select(driver.findElement(By.xpath("//*[@id=\"region-select\"]")));       // select district
         districtDropdown.selectByValue("Rompin");
 
         Select provinceDropdown = new Select(driver.findElement(By.xpath("//*[@id=\"district-select\"]")));     // select province
-        provinceDropdown.selectByValue("Rompin");
+        provinceDropdown.selectByValue("Bebar");
 
-        driver.findElement(By.xpath("//*[@id=\"area\"]")).sendKeys("HSD 5739 NO PT 8198 KAMPUNG DERAMAN");         // location
+        driver.findElement(By.xpath("//*[@id=\"area\"]")).sendKeys("KAMPUNG BARU");         // location
         driver.findElement(By.xpath("//*[@id=\"wide_acres\"]")).sendKeys("550");    // land area
         driver.findElement(By.id("gross_development_cost")).sendKeys("1100000");            // gross development cost
         
@@ -81,7 +80,7 @@ public class CreateApplication {
         driver.findElement(By.xpath("//*[@id=\"percent_nonbumi\"]")).clear();
         driver.findElement(By.xpath("//*[@id=\"percent_nonbumi\"]")).sendKeys("70");
         driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[1]/div/div/div[2]/input")).sendKeys("Hamzah Khas");
-        driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[2]/div/div/div[2]/input")).sendKeys("000900000000");
+        driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[2]/div/div/div[2]/input")).sendKeys("000910110183");
         driver.findElement(By.xpath("//*[@id=\"form-step-2\"]/div/div[2]/div[5]/div[3]/div/div/div[2]/input")).sendKeys("25");
         driver.findElement(By.xpath("//*[@id=\"app-info-b-next-btn\"]")).click();
 
