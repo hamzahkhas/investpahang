@@ -21,7 +21,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class GenerateLetter {
 
     @Test
-    public void testGenerateLetter(int applicationNo, String fileNo) {
+    public void testGenerateLetter(int applicationNo, String fileNo) {        
         
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -40,11 +40,11 @@ public class GenerateLetter {
             driver.findElement(By.xpath("/html/body/div[1]/div/div[3]/div/div/form/button")).click();
     
             // view new application submenu
-            WebElement unitProcessMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/a")));
+            WebElement unitProcessMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[4]/a")));
             actions.moveToElement(unitProcessMenu).perform();
             unitProcessMenu.click();
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/a"))).click();
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[2]/div/ul/li[1]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[4]/div/ul/li[1]/a"))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[4]/div/ul/li[1]/div/ul/li[1]/a"))).click();
 
             driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
             driver.findElement(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]")).click();
@@ -78,7 +78,7 @@ public class GenerateLetter {
             }
 
             // input reference number
-            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/div/div/div/div[1]/div/input")).sendKeys(fileNo);
+            driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/div/div/div/div[2]/div/input")).sendKeys(fileNo);
             driver.findElement(By.xpath("//*[@id=\"approve-proposal\"]/button")).click();
             
         } catch (Exception e) {

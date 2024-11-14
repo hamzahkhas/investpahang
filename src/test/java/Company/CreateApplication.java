@@ -126,18 +126,18 @@ public class CreateApplication {
             e.printStackTrace();
         }
 
-        // open new page
-        js.executeScript("window.open('"+ link +"','_blank');");      
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));  
+        // // open new page
+        // js.executeScript("window.open('"+ link +"','_blank');");      
+        // ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        // driver.switchTo().window(tabs.get(1));  
 
-        // view project progress
-        WebElement investMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a"));
-        actions.moveToElement(investMenu).perform();
-        investMenu.click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/div/ul/li[6]/a"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
+        // // view project progress
+        // WebElement investMenu = driver.findElement(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/a"));
+        // actions.moveToElement(investMenu).perform();
+        // investMenu.click();
+        // wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"sidebar\"]/div/div[2]/nav/ul/li[3]/div/ul/li[6]/a"))).click();
+        // wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
+        // wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"dataTable\"]/thead/tr/th[2]"))).click();
 
 
         try {

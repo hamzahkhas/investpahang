@@ -23,39 +23,47 @@ public class MainFlow {
 
     @Test
     public void createApp() {
-        CreateApplication createApplication = new CreateApplication();
-        createApplication.testCreateApplication();
+
+        for (int i = 0; i < 10; i++ ) {
+
+            CreateApplication createApplication = new CreateApplication();
+            createApplication.testCreateApplication();
+
+        }
+        
     }
     
     @Test
     public void runMainFlow() {
 
-        String fileNo = "8.08.1179";
-        int applicationNo = 1179;
+        for (int i = 2035; i < 2036; i++) {
 
-        ApproveFirstLayer approveFirstLayer = new ApproveFirstLayer();
-        ApproveSecondLayer approveSecondLayer = new ApproveSecondLayer();
-        UploadInvoice uploadInvoice = new UploadInvoice();
-        ApproveInvoiceFirstLevel approveInvoiceFirstLevel = new ApproveInvoiceFirstLevel();
-        ApproveInvoiceSecondLevel approveInvoiceSecondLevel = new ApproveInvoiceSecondLevel();
-        GenerateLetter generateLetter = new GenerateLetter();
-        AssignReviewer assignReviewer = new AssignReviewer();
-        MoveToJKT moveToJKT = new MoveToJKT();
-        MoveToMMK moveToMMK = new MoveToMMK();
-        ApproveProject approveProject = new ApproveProject();
-
-
-
-        approveFirstLayer.testApproveFirstLayer(applicationNo);
-        approveSecondLayer.testApproveSecondLayer(applicationNo);
-        uploadInvoice.testUploadInvoice(applicationNo);
-        approveInvoiceFirstLevel.testApproveInvoiceFirstLevel(applicationNo);
-        approveInvoiceSecondLevel.testApproveInvoiceSecondLevel(applicationNo);
-        generateLetter.testGenerateLetter(applicationNo, fileNo);
-        // moveToJKT.testMoveToJKT(applicationNo);
-        // moveToMMK.testMoveToMMK(applicationNo);
-        // approveProject.testApproveProject(applicationNo);
-
+            String fileNo = "Test.08."+i;
+            int applicationNo = i;
+    
+            ApproveFirstLayer approveFirstLayer = new ApproveFirstLayer();
+            ApproveSecondLayer approveSecondLayer = new ApproveSecondLayer();
+            UploadInvoice uploadInvoice = new UploadInvoice();
+            ApproveInvoiceFirstLevel approveInvoiceFirstLevel = new ApproveInvoiceFirstLevel();
+            ApproveInvoiceSecondLevel approveInvoiceSecondLevel = new ApproveInvoiceSecondLevel();
+            GenerateLetter generateLetter = new GenerateLetter();
+            AssignReviewer assignReviewer = new AssignReviewer();
+            MoveToJKT moveToJKT = new MoveToJKT();
+            MoveToMMK moveToMMK = new MoveToMMK();
+            ApproveProject approveProject = new ApproveProject();
+    
+    
+    
+            approveFirstLayer.testApproveFirstLayer(applicationNo);
+            approveSecondLayer.testApproveSecondLayer(applicationNo);
+            uploadInvoice.testUploadInvoice(applicationNo);
+            approveInvoiceFirstLevel.testApproveInvoiceFirstLevel(applicationNo);
+            approveInvoiceSecondLevel.testApproveInvoiceSecondLevel(applicationNo);
+            generateLetter.testGenerateLetter(applicationNo, fileNo);
+            // moveToJKT.testMoveToJKT(applicationNo);
+            // moveToMMK.testMoveToMMK(applicationNo);
+            // approveProject.testApproveProject(applicationNo);
+        }
 
 
     }
